@@ -1,0 +1,37 @@
+@layout('layouts/master')
+
+@set('title','Login')
+
+@section('body')
+    {{--  Login  --}}
+    <h1 class="ui header">Sign in</h1>
+        @if(flashMessages.has('error'))
+            <div class="ui error message" > {{ flashMessages.get('error')}} </div>
+        @endif
+    <div class="ui container">
+        <form class="ui form" action="{{ route('users.login') }}" method="post">
+            <div class="four wide field ">
+                <div class="ui left icon input">
+                    <i class="user icon"></i>
+                    <input type="text" name="username" placeholder="Username">
+                    @if(flashMessages.has('errors.username'))
+                        <div class="ui negative message"> {{ flashMessages.get('errors.username')}} </div>
+                     @endif
+                </div>
+            </div>
+            <div class="four wide field">
+                <div class="ui left icon input">
+                    <i class="lock icon"></i>
+                    <input type="password" name="password" placeholder="Password">
+                    @if(flashMessages.has('errors.password'))
+                        <div class="ui negative message"> {{ flashMessages.get('errors.password')}} </div>
+                    @endif
+                </div>
+            </div>
+            <input class="ui orange button" type="submit" value="Login">
+            <a class="ui orange button" href="{{route('register')}}">Register</a>
+        </form>
+    </div>
+
+@endsection
+  

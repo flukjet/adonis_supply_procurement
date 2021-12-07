@@ -1,0 +1,46 @@
+@layout('layouts/master')
+
+@set('title','supply')
+
+@section('body')
+    {{--  Search box  --}}
+    <div class="ui action left icon input">
+      <i class="search icon"></i>
+      <input type="text" placeholder="Search with name...">
+      <button type="submit" class="ui button">Search</button>
+    </div>
+    {{--  History  --}}
+    <a class="ui button" href="{{route('history')}}">
+      History
+    </a>
+    {{--  Product cart  --}}
+    
+      <div class="ui four column doubling grid container" style="margin-top: 20px;">
+        @each(product in products)
+          <div class="column">
+            <div class="ui card">
+              <div class="image">
+                <img class="fluid" src="./pictures/{{product.image}}" height="100px">
+              </div>
+              <div class="content">
+                <div class="header">{{product.name}}</div>
+                <div class="description">{{product.detail}}</div>
+              </div>
+              <div class="extra content">
+                <a id="button{{product.id}}" class="right floated mini button" href="{{route('order.add',{id: product.id})}}" >เพิ่ม</a>
+              </div>
+            </div>
+          </div>
+        @endeach
+      </div>
+@endsection
+
+@section('script')
+  function handleRadio(id){
+    $('#button'+id).removeClass("disabled") ;
+    let url = '/cart/'+id ;
+    $('#button'+id).attr('href',url)
+  }
+@endsection
+
+

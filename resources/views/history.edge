@@ -1,0 +1,32 @@
+@layout('layouts/master')
+
+@set('title','history')
+
+@section('body')
+    <div class="ui segment">
+        <h3>Your history</h3>
+        <table class="ui celled table">
+            <tr class="center aligned">
+                <th>id</th>
+                <th>product(quantity)</th>
+                <th>note</th>
+                <th>status</th>
+                <th></th>
+            </tr>
+        {{--  @each(product in cart)  --}}
+            <tr class="center aligned">
+                <td>1</td>
+                <td>ปากกาน้ำเงิน(3)</td>
+                <td>None</td>
+                <td>process</td>
+                <td><a class="ui red mini button" href="">edit</a></td>
+            </tr>
+        {{--  @endeach  --}}
+        </table>
+        <a class="ui teal mini button" href="{{route('home')}}">Return</a>
+    </div>
+@endsection
+
+
+
+

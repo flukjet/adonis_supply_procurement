@@ -1,0 +1,32 @@
+@layout('layouts/master')
+
+@set('title','order')
+
+@section('body')
+    <div class="ui segment">
+        <h3>Your order : 1 item(s)</h3>
+        <table class="ui celled table">
+            <tr class="center aligned">
+                <th class="left aligned">Product</th><th>Catagories</th><th>Quantity</th>
+            </tr>
+        {{--  @each(product in cart)  --}}
+            <tr class="center aligned">
+                <td class="left aligned">ปากกาน้ำเงิน</td>
+                <td>Pen</td>
+                <td>3</td>
+                <td><a class="ui red mini button" href="">Delete</a></td>
+            </tr>
+        {{--  @endeach  --}}
+        </table>
+        <label for="note">Note:</label>
+        <br>
+            <textarea id="note" name="note" rows="3" cols="30"></textarea>
+        <br>
+        <a class="ui teal mini button" href="{{route('home')}}">Buy more</a>
+        <a class="ui red mini button" href="">Success</a>
+    </div>
+@endsection
+
+
+
+

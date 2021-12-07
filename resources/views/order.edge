@@ -4,19 +4,21 @@
 
 @section('body')
     <div class="ui segment">
-        <h3>Your order : 1 item(s)</h3>
+        <h3>Your order : {{order.length}} item(s)</h3>
         <table class="ui celled table">
             <tr class="center aligned">
-                <th class="left aligned">Product</th><th>Catagories</th><th>Quantity</th>
+                <th class="left aligned">Product</th>
+                {{--  <th>Picture</th>  --}}
+                <th>Quantity</th>
             </tr>
-        {{--  @each(product in cart)  --}}
+        @each(product in orders)
             <tr class="center aligned">
-                <td class="left aligned">ปากกาน้ำเงิน</td>
-                <td>Pen</td>
-                <td>3</td>
+                <td class="left aligned">{{product.name}}</td>
+                {{--  <td>{{product.image}}</td>  --}}
+                <td>{{product.quantity}}</td>
                 <td><a class="ui red mini button" href="">Delete</a></td>
             </tr>
-        {{--  @endeach  --}}
+        @endeach
         </table>
         <label for="note">Note:</label>
         <br>

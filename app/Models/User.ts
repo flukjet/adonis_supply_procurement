@@ -1,8 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, hasMany, HasMany, beforeSave} from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, hasMany, HasMany, beforeSave, BelongsTo, belongsTo} from '@ioc:Adonis/Lucid/Orm'
 import Ticket from 'App/Models/Ticket'
 import Hash from '@ioc:Adonis/Core/Hash'
-
+import Role from './Role'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -28,6 +28,10 @@ export default class User extends BaseModel {
 
   @hasMany(() => Ticket)
   public tickets: HasMany<typeof Ticket>
+
+  @belongsTo(()=> Role)
+  public role: BelongsTo<typeof Role>
+
 
   @beforeSave()
   public static async hashPassword (user: User) {

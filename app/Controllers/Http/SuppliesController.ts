@@ -1,5 +1,9 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product'
+import Ticket from 'App/Models/Ticket'
+import Ticketdetail from 'App/Models/Ticketdetail'
+import Ticketdetail from 'App/Models/Ticketdetail'
+import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class SuppliesController {
 
@@ -19,7 +23,7 @@ export default class SuppliesController {
         return view.render('history', {order:order})
     }
 
-    public async order({request,view}: HttpContextContract) {
+    public async order({request,response,view}: HttpContextContract) {
 
         const orders = request.cookie('order',[])
         const orderDetail = []
@@ -27,7 +31,7 @@ export default class SuppliesController {
           const productdetail = await Product.query()
                                         .where('id',product.id)
                                         .first()
-  
+          
           orderDetail.push({id: product.id,
                             name: productdetail?.name,
                             quantity:  product.quantity})
@@ -64,7 +68,7 @@ export default class SuppliesController {
                                 });
         }
         
-
+        response.cookie('orders', orderDetailSort)
         
         
         return view.render('order', {orders: orderDetailSort, order: orderDetail})
@@ -77,8 +81,8 @@ export default class SuppliesController {
         const product = { id: product_id, quantity: 1} 
         order.push(product)
         response.cookie('order', order)
-        console.log(product);
-        
+
+
         
         response.redirect().toRoute('home')
     }
@@ -96,5 +100,52 @@ export default class SuppliesController {
       }
 
       response.redirect().toRoute('order')
-}
+    }
 
+    public async genTicket({request, session, response}: HttpContextContract){
+
+      const orders = request.cookie('orders')
+      const user = session.get('user')
+      const note = request.input('note')
+
+      
+      // insert ticket table
+
+      const ticket = new Ticket()
+      
+      ticket.userId = user.id
+      ticket.note = note 
+
+      await ticket.save() 
+
+
+
+      // insert ticketdetail table
+
+
+      const ticket_id =  await Ticket.query()
+                                  .where('created_at', 
+                                    Ticket.query()
+                                    .max('created_at'))
+      
+      
+      for (let i = 0; i < orders.length; i++) {
+        
+
+        const ticketdetail = new Ticketdetail()
+
+        ticketdetail.ticketId = ticket_id[0].id
+        ticketdetail.productId = orders[i].id;
+        ticketdetail.quantity = orders[i].quantity;
+
+        await ticketdetail.save();
+
+      }
+
+
+      response.cookie('order', [])
+      response.cookie('orders', [])
+      response.redirect().toRoute('home')
+
+    }
+}

@@ -26,6 +26,7 @@ Route.group(()=>{
     Route.get('/order','SuppliesController.order').as('order')
     Route.get('/order/:id/add','SuppliesController.orderAdd').as('order.add')
     Route.get('/order/:id/delete','SuppliesController.orderDelete').as('order.delete')
+    Route.get('/order/genticket','SuppliesController.genTicket').as('ticket.gen')
 
 
 

@@ -20,12 +20,14 @@
             </tr>
         @endeach
         </table>
-        <label for="note">Note:</label>
+        <form class="ui form" action="{{ route('ticket.gen')}}" method="get">
+            <label name="note" for="note">Note:</label>
         <br>
             <textarea id="note" name="note" rows="3" cols="30"></textarea>
         <br>
         <a class="ui teal mini button" href="{{route('home')}}">Buy more</a>
-        <a class="ui red mini button" href="">Success</a>
+        <input class="ui red mini button" type="submit" value="Success">
+        </form>
     </div>
 @endsection
 

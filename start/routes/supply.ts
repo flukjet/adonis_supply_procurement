@@ -24,6 +24,10 @@ Route.group(()=>{
     Route.get('/index','SuppliesController.index').as('home')
     Route.get('/history','SuppliesController.history').as('history')
     Route.get('/order','SuppliesController.order').as('order')
-    Route.get('/cart/:id','SuppliesController.orderAdd').as('order.add')
+    Route.get('/order/:id/add','SuppliesController.orderAdd').as('order.add')
+    Route.get('/order/:id/delete','SuppliesController.orderDelete').as('order.delete')
+
+
+
 }).middleware('auth')
 

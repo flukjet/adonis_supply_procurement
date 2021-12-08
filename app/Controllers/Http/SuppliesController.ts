@@ -44,11 +44,27 @@ export default class SuppliesController {
           }
         });
         
+
+
+
         let orderDetailSort = [];
-        
+
+
+
         for (let prop in holder) {
-            orderDetailSort.push({ name: prop, quantity: holder[prop] });
+
+          let product_id = await Product.query()
+                                  .where('name',prop)
+                                  .first()
+
+          orderDetailSort.push({   
+                                  id: product_id.id,
+                                  name: prop,
+                                  quantity: holder[prop],
+                                });
         }
+        
+
         
         
         return view.render('order', {orders: orderDetailSort, order: orderDetail})
@@ -63,20 +79,22 @@ export default class SuppliesController {
         response.cookie('order', order)
         console.log(product);
         
+        
         response.redirect().toRoute('home')
     }
 
 
     public async orderDelete({request, params, response}: HttpContextContract){
-      const cart = request.cookie('cart',[])
+      const order = request.cookie('order',[])
       const product_id = params.id 
-      const color_id = params.color_id
-      for(let i=0; i<cart.length ;i++){
-        if(cart[i].id == product_id && cart[i].color_id==color_id){
-          cart.splice(i,1) 
-          response.cookie('cart',cart)
+      for(let i=0; i<order.length ;i++){
+        if(order[i].id == product_id){
+          order.splice(i,1) 
+          response.cookie('order',order)
           break 
         }
       }
+
+      response.redirect().toRoute('order')
 }
 

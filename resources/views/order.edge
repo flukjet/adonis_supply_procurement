@@ -16,7 +16,7 @@
                 <td class="left aligned">{{product.name}}</td>
                 {{--  <td>{{product.image}}</td>  --}}
                 <td>{{product.quantity}}</td>
-                <td><a class="ui red mini button" href="">Delete</a></td>
+                <td><a class="ui red mini button" href="{{ route('order.delete',{id: product.id}) }}">Delete</a></td>
             </tr>
         @endeach
         </table>

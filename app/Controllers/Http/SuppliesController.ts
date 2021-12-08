@@ -67,16 +67,16 @@ export default class SuppliesController {
     }
 
 
-    // public async orderDelete({request, params, response}: HttpContextContract){
-    //   const cart = request.cookie('cart',[])
-    //   const product_id = params.id 
-    //   const color_id = params.color_id
-    //   for(let i=0; i<cart.length ;i++){
-    //     if(cart[i].id == product_id && cart[i].color_id==color_id){
-    //       cart.splice(i,1) 
-    //       response.cookie('cart',cart)
-    //       break 
-    //     }
-    //   }
+    public async orderDelete({request, params, response}: HttpContextContract){
+      const cart = request.cookie('cart',[])
+      const product_id = params.id 
+      const color_id = params.color_id
+      for(let i=0; i<cart.length ;i++){
+        if(cart[i].id == product_id && cart[i].color_id==color_id){
+          cart.splice(i,1) 
+          response.cookie('cart',cart)
+          break 
+        }
+      }
 }
 

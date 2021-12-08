@@ -22,7 +22,7 @@ import Route from '@ioc:Adonis/Core/Route'
 
 
 Route.get('/', async ({ response }) => {
-  response.redirect().toRoute('login')
+  response.redirect().toRoute('home')
 })
 
 Route.get('/login','UsersController.loginpage').as('login')

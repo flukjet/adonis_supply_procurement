@@ -1,7 +1,7 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import RegisterUserValidator from 'App/Validators/RegisterUserValidator'
-
+import hash from '@ioc:Adonis/Core/Hash'
 
 export default class UsersController {
 
@@ -11,22 +11,52 @@ export default class UsersController {
         return view.render('login')
     }
 
-    async login({auth,request,session,response}: HttpContextContract) {
+    async login({request,session,response}: HttpContextContract) {
+        
+        // const username = request.input('username')
+        // const password = request.input('password')
+        // console.log('login process')
+
+        // try{
+        //     await auth.attempt(username,password)
+        //     console.log('login successfull')
+        //     response.redirect().toRoute('home')
+        // }
+        // catch(error) {
+        //     session.flash('error','This user is not authorized!')
+        //     console.log('login failure')
+        //     response.redirect().toRoute('login')
+        // }
+
         const username = request.input('username')
         const password = request.input('password')
-        console.log('login process')
+
+
 
         try{
-            await auth.attempt(username,password)
-            console.log('login successfull')
-            response.redirect().toRoute('home')
+            const user = await User.findByOrFail('username', username)
+
+            if (user) {
+                if (await hash.verify(user.password,password)){
+                    session.put('user',{id: user.id, username: username, name: user.name})
+                    console.log('login successfull')
+                    response.redirect().toRoute('home')
+                } else {
+                    throw 'The user is not authorized!'
+                    console.log('login failure')
+                }
+            }
         }
         catch(error) {
-            session.flash('error','This user is not authorized!')
-            console.log('login failure')
+            session.flash('error','The user is not authorized!')
+            console.log('login error')
             response.redirect().toRoute('login')
         }
+
+
     }
+
+
 
     async registerpage({view}: HttpContextContract) {
 
@@ -51,8 +81,8 @@ export default class UsersController {
         response.redirect().toRoute('loginpage')
     }
 
-    async logout({auth, response}:HttpContextContract){
-        await auth.use('web').logout()
+    async logout({session, response}:HttpContextContract){
+        session.clear()
         response.redirect().toRoute('login')
     }
 }

@@ -1,0 +1,18 @@
+import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+
+export default class MyAuth {
+  public async handle({session, response, view}: HttpContextContract, next: () => Promise<void>){
+    const user =session.get('user')
+    console.log(user);
+    if(user) {
+      view.share({
+        currentUser: user.username
+        
+      })
+      await next()
+    }
+    else {
+      response.redirect().toRoute('login')
+    }
+  }
+}

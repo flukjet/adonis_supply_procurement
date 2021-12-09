@@ -7,23 +7,27 @@
         <h3>Your history</h3>
         <table class="ui celled table">
             <tr class="center aligned">
-                <th>id</th>
-                <th>product(quantity)</th>
+                <th>Order id</th>
+                <th>create date</th>
                 <th>note</th>
                 <th>status</th>
                 <th></th>
             </tr>
-        {{--  @each(product in cart)  --}}
+        @each(ticket in tickets)
             <tr class="center aligned">
-                <td>1</td>
-                <td>ปากกาน้ำเงิน(3)</td>
-                <td>None</td>
-                <td>process</td>
-                <td><a class="ui red mini button" href="">edit</a></td>
+                <td>{{ticket.id}}</td>
+                <td>{{ticket.createdAt}}</td>
+                <td>{{ticket.note}}</td>
+                <td>{{ticket.ticketstatus.name}}</td>
+                    @if(ticket.ticketstatus.name == 'progress')
+                        <td><a class="ui red mini button" href="">edit</a></td>
+                    @endif
             </tr>
-        {{--  @endeach  --}}
+        @endeach
         </table>
+        <p style="color: red;">**สามารถแก้ไขได้กรณีอยู่ในสถานะ "progress" เท่านั้น</p>
         <a class="ui teal mini button" href="{{route('home')}}">Return</a>
+
     </div>
 @endsection
 

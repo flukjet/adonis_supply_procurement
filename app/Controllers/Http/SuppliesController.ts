@@ -7,20 +7,31 @@ import Database from '@ioc:Adonis/Lucid/Database'
 
 export default class SuppliesController {
 
-    public async index({request,view,session}: HttpContextContract) {
+    public async index({request,view}: HttpContextContract) {
         const order = request.cookie('order',[])
-        const user = session.get('user')
         const products = await Product.all()
         
-        
+
         return view.render('supply',{products: products, order:order})
     }
   
-    public async history({request,view}: HttpContextContract) {
+    public async history({request,response,view,session}: HttpContextContract) {
 
         const order = request.cookie('order',[])
+        const user = session.get('user')
 
-        return view.render('history', {order:order})
+
+        const tickets = await Ticket.query().where('userId',user.id)
+                                    .preload('user')
+                                    .preload('ticketstatus')
+                                    
+        const ticketdetails = await Ticketdetail.query().preload('product').preload('ticket')
+      
+
+        console.log(tickets);
+        
+
+        return view.render('history', {tickets: tickets, order:order, ticketdetails: ticketdetails} )
     }
 
     public async order({request,response,view}: HttpContextContract) {
@@ -56,7 +67,6 @@ export default class SuppliesController {
 
 
         for (let prop in holder) {
-
           let product_id = await Product.query()
                                   .where('name',prop)
                                   .first()
@@ -69,9 +79,8 @@ export default class SuppliesController {
         }
         
         response.cookie('orders', orderDetailSort)
-        
-        
         return view.render('order', {orders: orderDetailSort, order: orderDetail})
+
     }
 
     public async orderAdd({request, params, response }:HttpContextContract){
@@ -112,23 +121,19 @@ export default class SuppliesController {
       // insert ticket table
 
       const ticket = new Ticket()
-      
       ticket.userId = user.id
       ticket.note = note 
 
       await ticket.save() 
 
-
-
       // insert ticketdetail table
 
-
-      const ticket_id =  await Ticket.query()
+      const ticket_id =  await Ticket.query().where('user_id',user.id)
                                   .where('created_at', 
                                     Ticket.query()
                                     .max('created_at'))
       
-      
+                                
       for (let i = 0; i < orders.length; i++) {
         
 
@@ -143,9 +148,13 @@ export default class SuppliesController {
       }
 
 
+
       response.cookie('order', [])
       response.cookie('orders', [])
       response.redirect().toRoute('home')
 
     }
+
+
+
 }

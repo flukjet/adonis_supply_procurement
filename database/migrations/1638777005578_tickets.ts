@@ -9,7 +9,7 @@ export default class Tickets extends BaseSchema {
       table.increments('id').primary()
       table.integer('user_id')
       table.string('note')
-      table.integer('status_id').defaultTo(1)
+      table.integer('ticketstatus_id').defaultTo(1)
 
 
       /**

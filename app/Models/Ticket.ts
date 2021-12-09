@@ -15,7 +15,7 @@ export default class Ticket extends BaseModel {
   public note: string
 
   @column()
-  public statusID: number
+  public ticketstatusId: number
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -31,5 +31,4 @@ export default class Ticket extends BaseModel {
 
   @belongsTo(()=> Ticketstatus)
   public ticketstatus: BelongsTo<typeof Ticketstatus>
-
 }

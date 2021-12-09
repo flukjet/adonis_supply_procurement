@@ -2,17 +2,18 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Product from 'App/Models/Product'
 import Ticket from 'App/Models/Ticket'
 import Ticketdetail from 'App/Models/Ticketdetail'
-import Ticketdetail from 'App/Models/Ticketdetail'
-import Database from '@ioc:Adonis/Lucid/Database'
+
 
 export default class SuppliesController {
 
     public async index({request,view}: HttpContextContract) {
         const order = request.cookie('order',[])
+        const ticket_id = request.cookie('ticket_id')
+        const orders = request.cookie('orders')
         const products = await Product.all()
         
 
-        return view.render('supply',{products: products, order:order})
+        return view.render('supply',{products: products, order:order,orders:orders})
     }
   
     public async history({request,response,view,session}: HttpContextContract) {
@@ -25,11 +26,7 @@ export default class SuppliesController {
                                     .preload('user')
                                     .preload('ticketstatus')
                                     
-        const ticketdetails = await Ticketdetail.query().preload('product').preload('ticket')
-      
-
-        console.log(tickets);
-        
+        const ticketdetails = await Ticketdetail.query().preload('product').preload('ticket')    
 
         return view.render('history', {tickets: tickets, order:order, ticketdetails: ticketdetails} )
     }
@@ -148,7 +145,7 @@ export default class SuppliesController {
       }
 
 
-
+      response.cookie('ticket_id', [])
       response.cookie('order', [])
       response.cookie('orders', [])
       response.redirect().toRoute('home')
@@ -156,5 +153,89 @@ export default class SuppliesController {
     }
 
 
+    public async edit({params,request,response,view}: HttpContextContract) {
 
+      const order = request.cookie('order')
+      const ticket_id_c = request.cookie('ticket_id')
+
+      let ticket_id = params.id 
+
+
+      const productdetail = await Ticketdetail.query()
+                                              .where('ticket_id',ticket_id)
+                                              .preload('product')
+                                              .preload('ticket')
+      
+      response.cookie('ticket_id',ticket_id )
+
+
+      console.log(ticket_id_c);
+      
+      const orderDetail = []
+
+      const totalquantity = [];
+                                              
+      for (let i = 0; i < productdetail.length; i++) {
+        
+
+          orderDetail.push({id: productdetail[i]?.product.id,
+                            name: productdetail[i]?.product.name,
+                            quantity:  productdetail[i]?.quantity
+                          })
+                          
+
+          totalquantity.push(productdetail[i]?.quantity);
+
+      }
+      
+      const reducer = (accumulator, curr) => accumulator + curr;
+      const numquan = totalquantity.reduce(reducer);
+      const note = productdetail[0]?.ticket.note
+
+      
+
+      response.cookie('order', orderDetail)
+      
+      return view.render('edit',{order: orderDetail, orders: orderDetail, note:note, ticket_id: ticket_id, switchs: true})
+
+    
+    }
+
+    public async updateTicket({request, session, response}: HttpContextContract){
+
+      const order = request.cookie('order')
+      const ticket_id = parseInt(request.cookie('ticket_id'),10)
+      const user = session.get('user')
+      const note = request.input('note')
+
+      
+
+
+      const tickets = await Ticket.query()
+                                  .where('id',ticket_id)
+                                  .firstOrFail()
+
+      tickets!.note = note
+
+      await tickets?.save()
+    
+      response.redirect().toRoute('home')
+    }
+
+    
+    async delete({session, params, response}: HttpContextContract){
+
+      const user = session.get('user')
+      const ticket_id = params.id
+      // const ticketdetail = await Ticketdetail.query().where('ticket_id',ticket_id).firstOrFail()
+      // await ticketdetail?.delete()
+
+
+
+
+      const ticket = await Ticket.query().where('id',ticket_id).firstOrFail()
+      await ticket?.delete()
+
+      response.redirect().toRoute('home')
+  }
 }

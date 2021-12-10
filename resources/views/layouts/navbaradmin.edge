@@ -1,0 +1,16 @@
+<div class="ui orange top fixed inverted borderless menu">
+    <a class=" header item" href="{{route('admin')}}"><h3>Supply Procurement</h3></a>
+    <div class="right menu">
+        @if(currentUser)
+            <div class="ui dropdown item">
+                User: &nbsp; {{currentUser}}
+                <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <div class="item"><a style="color: black;" href="{{route('logout')}}">Log Out</a></div>
+                    </div>
+                </div>  
+            @endif
+     </div> 
+
+</div> 
+ 

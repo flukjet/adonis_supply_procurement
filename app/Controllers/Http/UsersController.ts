@@ -38,9 +38,9 @@ export default class UsersController {
 
             if (user) {
                 if (await hash.verify(user.password,password)){
-                    session.put('user',{id: user.id, username: username, name: user.name})
+                    session.put('user',{id: user.id, username: username, name: user.name, role_id: user.roleId})
                     console.log('login successfull')
-                    response.redirect().toRoute('home')
+                    response.redirect().toRoute('switchpage')
                 } else {
                     throw 'The user is not authorized!'
                     console.log('login failure')
@@ -78,11 +78,22 @@ export default class UsersController {
 
         const user = await User.create({username: load.username, password: load.password, name: load.name })
 
-        response.redirect().toRoute('loginpage')
+        response.redirect().toRoute('login')
     }
 
     async logout({session, response}:HttpContextContract){
         session.clear()
         response.redirect().toRoute('login')
+    }
+
+    async switchPage({session, response}:HttpContextContract){
+        const user = session.get('user')
+        
+        if(user.role_id == 2){
+            response.redirect().toRoute('admin')
+        } else {
+            response.redirect().toRoute('home')
+        }
+        
     }
 }

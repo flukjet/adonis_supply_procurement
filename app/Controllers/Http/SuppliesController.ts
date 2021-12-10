@@ -56,12 +56,7 @@ export default class SuppliesController {
           }
         });
         
-
-
-
         let orderDetailSort = [];
-
-
 
         for (let prop in holder) {
           let product_id = await Product.query()
@@ -87,9 +82,7 @@ export default class SuppliesController {
         const product = { id: product_id, quantity: 1} 
         order.push(product)
         response.cookie('order', order)
-
-
-        
+      
         response.redirect().toRoute('home')
     }
 
@@ -218,7 +211,10 @@ export default class SuppliesController {
       tickets!.note = note
 
       await tickets?.save()
-    
+
+      response.cookie('ticket_id', [])
+      response.cookie('order', [])
+      response.cookie('orders', [])
       response.redirect().toRoute('home')
     }
 
@@ -238,4 +234,5 @@ export default class SuppliesController {
 
       response.redirect().toRoute('home')
   }
+
 }

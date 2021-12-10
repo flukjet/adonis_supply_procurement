@@ -18,6 +18,13 @@
 |
 */
 
-import './routes/supply'
-import './routes/user'
-import './routes/admin'
+import Route from '@ioc:Adonis/Core/Route'
+
+Route.group(()=>{
+
+
+}).middleware('auth')
+
+Route.get('/admin','AdminsController.admin').as('admin')
+Route.get('/admin/:id/approve','AdminsController.approveStatus').as('admin.approve')
+Route.get('/admin/:id/reject','AdminsController.rejectStatus').as('admin.reject')

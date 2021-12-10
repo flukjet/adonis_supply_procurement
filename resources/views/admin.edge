@@ -14,19 +14,19 @@
                 <th>status</th>
                 <th></th>
             </tr>
-        {{--  @each(product in cart)  --}}
+        @each(ticket in tickets)
             <tr class="center aligned">
-                <td>1</td>
-                <td>First</td>
+                <td>{{ticket.id}}</td>
+                <td>{{ticket.user.name}}</td>
                 <td>ปากกาน้ำเงิน(3)</td>
-                <td>None</td>
-                <td>process</td>
+                <td>{{ticket.note}}</td>
+                <td>{{ticket.ticketstatus.name}}</td>
                 <td>
-                    <a class="ui green mini button" href="">Approve</a>
-                    <a class="ui red mini button" href="">Reject</a>
+                    <a class="ui green mini button" href="{{route('admin.approve',{id: ticket.id})}}">Approve</a>
+                    <a class="ui red mini button" href="{{route('admin.reject',{id: ticket.id})}}">Reject</a>
                 </td>
             </tr>
-        {{--  @endeach  --}}
+        @endeach
         </table>
     </div>
 @endsection

@@ -1,6 +1,6 @@
 @layout('layouts/master')
 
-@set('title','order')
+@set('title','edit')
 
 @section('body')
     <div class="ui segment">
@@ -14,19 +14,16 @@
         @each(product in orders)
             <tr class="center aligned">
                 <td class="left aligned">{{product.name}}</td>
-                {{--  <td>{{product.image}}</td>  --}}
                 <td>{{product.quantity}}</td>
-                <td><a class="ui red mini button" href="{{ route('order.delete',{id: product.id})}}">Delete</a></td>
             </tr>
         @endeach
         </table>
-        <form class="ui form" action="{{ route('ticket.gen')}}" method="get">
+        <form class="ui form" action="{{ route('ticket.update')}}" method="get">
             <label name="note" for="note">Note:</label>
         <br>
-            <textarea id="note" name="note" rows="3" cols="30"></textarea>
+            <textarea id="note" name="note" rows="3" cols="30">{{note}}</textarea>
         <br>
-        <a class="ui teal mini button" href="{{route('home')}}">Buy more</a>
-        <input class="ui red mini button" type="submit" value="Success">
+        <input class="ui red mini button" type="submit" value="Update">
         </form>
     </div>
 @endsection

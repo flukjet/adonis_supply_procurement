@@ -8,18 +8,19 @@
             <div class="menu">
                 <div class="item"><a style="color: black;" href="{{route('logout')}}">Log Out</a></div>
             </div>
-        </div>
-        <a class="item" href="{{route('order')}}">
-                <i class="large clipboard outline icon"></i>  
-                @if(order.length>0)
-                    <div class="ui red circular mini label" style="position: relative; top: -10px; left: -25px;">{{ order.length }}</div>
-                @endif   
-        </a>
-        @else
-
-        <p>Hello</p>
+        </div>  
+            @if(switchs == false)
+                <a class="item" href="{{route('order')}}">
+                    <i class="large clipboard outline icon"></i>  
+                    @if(order.length>0)
+                        <div class="ui red circular mini label" style="position: relative; top: -10px; left: -25px;">{{ order.length }}</div>
+                    @endif           
+                </a>
+            @else
+            @endif
         @endif
     </div>
 </div>
 
 
+ 

@@ -1,4 +1,4 @@
-@layout('layouts/masteradmin')
+@layout('layouts/mastercleanadmin')
 
 @set('title','admin')
 
@@ -11,13 +11,10 @@
                 <i class="dropdown icon"></i>
                 <div class="menu">
                     <div class="item">
-                        <a class="" href="" style = "color:black;">Add Product</a>
+                        <a class="" href="{{route('createProductPage')}}" style = "color:black;">Add Product</a>
                     </div>
                     <div class="item">
-                        <a class="" href="" style = "color:black;">Update Product</a>
-                    </div>
-                    <div class="item">
-                        <a class="" href="{{route('delProductPage')}}" style = "color:black;">Delete Product</a>
+                        <a class="" href="{{route('delProductPage')}}" style = "color:black;">Edit Product</a>
                     </div>
                 </div>
             </div>
@@ -28,16 +25,20 @@
             <tr class="center aligned">
                 <th>id</th>
                 <th>name</th>
-                <th>product(quantity)</th>
+                <th>product</th>
                 <th>note</th>
                 <th>status</th>
-                <th></th>
+                <th>action</th>
             </tr>
         @each(ticket in tickets)
             <tr class="center aligned">
                 <td>{{ticket.id}}</td>
                 <td>{{ticket.user.name}}</td>
-                <td>ปากกาน้ำเงิน(3)</td>
+                <td>
+                    <a href="{{ route('admin.view',{id: ticket.id}) }}"> 
+                        <i class="eye icon"></i>  
+                    </a> 
+                </td>
                 <td>{{ticket.note}}</td>
                 <td>{{ticket.ticketstatus.name}}</td>
                 <td>

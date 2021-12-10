@@ -21,9 +21,16 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(()=>{
-
+    Route.get('/delProductPage','ProductsController.delProductPage').as('delProductPage')
+    Route.get('/delProductPage/:id/del','ProductsController.delProduct').as('product.del')
+    
+    Route.get('/createProductPage','ProductsController.createProductPage').as('createProductPage')
+    Route.post('/createProductPage/create','ProductsController.createProduct').as('product.create')
+    
+    Route.get('/createProductPage/:id/edit','ProductsController.editProductPage').as('editProductPage')
+    Route.post('/createProductPage/:id/edit/done','ProductsController.editProduct').as('product.edit')
+    
 
 }).middleware('auth')
 
-Route.get('/delProductPage','ProductsController.delProductPage').as('delProductPage')
-Route.get('/delProduct','ProductsController.delProduct').as('delProduct')
+

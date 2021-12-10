@@ -24,6 +24,6 @@ Route.group(()=>{
     Route.get('/admin','AdminsController.admin').as('admin')
     Route.get('/admin/:id/approve','AdminsController.approveStatus').as('admin.approve')
     Route.get('/admin/:id/reject','AdminsController.rejectStatus').as('admin.reject')
-
+    Route.get('/admin/:id/view','AdminsController.adminView').as('admin.view')
 }).middleware('auth')
 

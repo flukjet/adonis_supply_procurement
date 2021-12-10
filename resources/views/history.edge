@@ -9,7 +9,7 @@
         <table class="ui celled table">
             <tr class="center aligned">
                 <th>Order id</th>
-                <th>create date</th>
+                <th>product</th>
                 <th>note</th>
                 <th>status</th>
                 <th>action</th>
@@ -17,21 +17,26 @@
         @each(ticket in tickets)
             <tr class="center aligned">
                 <td>{{ticket.id}}</td>
-                <td>{{ticket.createdAt}}</td>
+                <td> 
+                    <a href="{{ route('ticket.view',{id: ticket.id}) }}"> 
+                        <i class="eye icon"></i>  
+                    </a> 
+                </td>
                 <td>{{ticket.note}}</td>
                 <td>{{ticket.ticketstatus.name}}</td>
                 <td>
                     @if(ticket.ticketstatus.name == 'progress')
-                        <a class="ui red mini button" href="{{ route('ticket.edit',{id: ticket.id}) }}">edit</a>
-                    @endif
+                        <a class="ui teal mini button" href="{{ route('ticket.edit',{id: ticket.id}) }}">edit</a>
                         <a class="ui red mini button" href="{{ route('ticket.delete',{id: ticket.id}) }}">delete</a>
+                    @endif
+                        
                 </td>
             </tr>
         @endeach
         </table>
         <p style="color: red;">**สามารถแก้ไขได้กรณีอยู่ในสถานะ "progress" เท่านั้น</p>
         <p style="color: red;">**อนุญาตให้แก้ไขได้เฉพาะหัวข้อ "์Note"</p>
-        <a class="ui teal mini button" href="{{route('home')}}">Return</a>
+        <a class="ui grey mini button" href="{{route('home')}}">Return</a>
 
     </div>
 @endsection

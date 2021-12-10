@@ -21,27 +21,10 @@
     </style>
 </head>
 <body>
-
+    
     <div class="ui orange top fixed inverted borderless menu">
-        <a class=" header item" href="{{route('home')}}"><h3>Supply Procurement</h3></a>
-        <div class="right menu">
-            @if(currentUser)
-            <div class="ui dropdown item">
-                User: &nbsp; {{currentUser}}
-                <i class="dropdown icon"></i>
-                <div class="menu">
-                    <div class="item"><a style="color: black;" href="{{route('logout')}}">Log Out</a></div>
-                </div>
-            </div>  
-            <a class="item" href="{{route('order')}}">
-                <i class="large clipboard outline icon"></i>  
-                @if(order.length>0)
-                    <div class="ui red circular mini label" style="position: relative; top: -10px; left: -25px;">{{ order.length }}</div>
-                @endif          
-            </a>
-            @endif
-        </div> 
-    </div>
+        <h3 class=" header item">Supply Procurement</h3></a>
+    </div> 
     <div class="main">
         <div class="ui container">
             @!section('body')

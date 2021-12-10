@@ -1,4 +1,4 @@
-@layout('layouts/masteradmin')
+@layout('layouts/mastercleanadmin')
 
 
 @set('title','Product Management(Delete)')
@@ -25,7 +25,11 @@
                 <div class="description">{{product.detail}}</div>
               </div>
               <div class="extra content">
-                <a id="{{product.id}}" class="right floated button" href="{{route('delProduct',{id: product.id})}}" >ลบสินค้า</a>
+                <a id="{{product.id}}" class="right floated ui red mini button" href="{{route('product.del', {id: product.id})}}" >delete</a>
+                 &nbsp; &nbsp; &nbsp;
+                <a id="{{product.id}}" class="right floated ui teal mini button" href="{{route('editProductPage', {id: product.id})}}" >edit</a>
+                 
+                
               </div>
             </div>
           </div>

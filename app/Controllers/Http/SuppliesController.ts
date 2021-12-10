@@ -18,7 +18,7 @@ export default class SuppliesController {
         return view.render('supply',{products: products, order:order,orders:orders})
     }
   
-    public async history({request,response,view,session}: HttpContextContract) {
+    public async history({request,view,session}: HttpContextContract) {
 
         const order = request.cookie('order',[])
         const user = session.get('user')
@@ -163,8 +163,6 @@ export default class SuppliesController {
       
       response.cookie('ticket_id',ticket_id )
 
-
-      console.log(ticket_id_c);
       
       const orderDetail = []
 
@@ -235,6 +233,24 @@ export default class SuppliesController {
       await ticket?.delete()
 
       response.redirect().toRoute('home')
+  }
+
+  public async ticketView({params,request,response,view}: HttpContextContract) {
+
+
+    let ticket_id = params.id 
+
+    
+
+    const productdetail = await Ticketdetail.query()
+                                            .where('ticket_id',ticket_id)
+                                            .preload('product')
+                                            .preload('ticket')
+
+    console.log(productdetail[0]);
+    
+                                          
+    return view.render('productview',{products: productdetail,productView: true })
   }
 
 }

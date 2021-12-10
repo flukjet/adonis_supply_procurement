@@ -28,7 +28,9 @@
                 <div class="description">{{product.detail}}</div>
               </div>
               <div class="extra content">
-                <a id="{{product.id}}" class="right floated mini button" href="{{route('order.add',{id: product.id})}}" >เพิ่ม</a>
+                <a id="{{product.id}}" class="right floated ui green mini button plus icon" href="{{route('order.add',{id: product.id})}}" >
+                  <i class="plus icon"></i> 
+                </a>
               </div>
             </div>
           </div>

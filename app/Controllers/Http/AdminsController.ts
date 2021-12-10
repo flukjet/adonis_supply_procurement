@@ -13,7 +13,7 @@ export default class AdminsController {
     return view.render('admin', {tickets: tickets, ticketdetails: ticketdetails} )
     }
 
-    public async approveStatus({params,request, session, response}: HttpContextContract){
+    public async approveStatus({params, session, response}: HttpContextContract){
 
 
         const ticket_id = params.id
@@ -48,5 +48,20 @@ export default class AdminsController {
         response.redirect().toRoute('admin')
       }
 
+      public async adminView({params,view}: HttpContextContract) {
+
+
+        let ticket_id = params.id 
+    
+        
+    
+        const productdetail = await Ticketdetail.query()
+                                                .where('ticket_id',ticket_id)
+                                                .preload('product')
+                                                .preload('ticket')
+        
+                                              
+        return view.render('productview',{products: productdetail})
+      }
 
 }

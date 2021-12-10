@@ -5,11 +5,22 @@ export default class MyAuth {
     const user =session.get('user')
     if(user) {
       view.share({
-        currentUser: user.username
-        
+        currentUser: user.name,
+        currentUserrole: user.role_id
+
       })
+
+      if(user.role_id == 2) { 
+        response.redirect().toRoute('admin')
+  
+      } 
+      
+      else if(user.role_id == 1) {
+        response.redirect().toRoute('home')
+  
+      }
       await next()
-    }
+    } 
     else {
       response.redirect().toRoute('login')
     }

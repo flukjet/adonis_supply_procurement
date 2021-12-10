@@ -12,6 +12,8 @@ export default class SuppliesController {
         const orders = request.cookie('orders')
         const products = await Product.all()
         
+        console.log(order);
+        
 
         return view.render('supply',{products: products, order:order,orders:orders})
     }

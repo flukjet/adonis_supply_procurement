@@ -1,7 +1,7 @@
-@layout('layouts/masteruser')
+@layout('layouts/masteradmin')
 
 
-@set('title','supply')
+@set('title','Product Management(Delete)')
 
 @section('body')
     {{--  Search box  --}}
@@ -10,10 +10,7 @@
       <input type="text" placeholder="Search with name...">
       <button type="submit" class="ui button">Search</button>
     </div>
-    {{--  History  --}}
-    <a class="ui button" href="{{route('history')}}">
-      History
-    </a>
+
     {{--  Product cart  --}}
     
       <div class="ui four column doubling grid container" style="margin-top: 20px;">
@@ -28,7 +25,7 @@
                 <div class="description">{{product.detail}}</div>
               </div>
               <div class="extra content">
-                <a id="{{product.id}}" class="right floated mini button" href="{{route('order.add',{id: product.id})}}" >เพิ่ม</a>
+                <a id="{{product.id}}" class="right floated button" href="{{route('delProduct',{id: product.id})}}" >ลบสินค้า</a>
               </div>
             </div>
           </div>

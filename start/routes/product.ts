@@ -21,9 +21,9 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(()=>{
-    Route.get('/admin','AdminsController.admin').as('admin')
-    Route.get('/admin/:id/approve','AdminsController.approveStatus').as('admin.approve')
-    Route.get('/admin/:id/reject','AdminsController.rejectStatus').as('admin.reject')
+
 
 }).middleware('auth')
 
+Route.get('/delProductPage','ProductsController.delProductPage').as('delProductPage')
+Route.get('/delProduct','ProductsController.delProduct').as('delProduct')

@@ -31,7 +31,7 @@ export default class AdminsController {
       }
 
       
-    public async rejectStatus({params,request, session, response}: HttpContextContract){
+    public async rejectStatus({params, session, response}: HttpContextContract){
 
 
         const ticket_id = params.id
@@ -47,4 +47,6 @@ export default class AdminsController {
       
         response.redirect().toRoute('admin')
       }
+
+
 }

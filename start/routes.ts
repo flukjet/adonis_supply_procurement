@@ -21,3 +21,4 @@
 import './routes/supply'
 import './routes/user'
 import './routes/admin'
+import './routes/product'

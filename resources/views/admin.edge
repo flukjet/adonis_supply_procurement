@@ -4,7 +4,26 @@
 
 @section('body')
     <div class="ui segment">
-        <h3>Order lists</h3>
+        <div>
+            <h3>Order lists</h3>
+            <div class="ui dropdown" style="position: absolute; right: 10px; top:15px;">
+                <div class="text">Product Management</div>
+                <i class="dropdown icon"></i>
+                <div class="menu">
+                    <div class="item">
+                        <a class="" href="" style = "color:black;">Add Product</a>
+                    </div>
+                    <div class="item">
+                        <a class="" href="" style = "color:black;">Update Product</a>
+                    </div>
+                    <div class="item">
+                        <a class="" href="{{route('delProductPage')}}" style = "color:black;">Delete Product</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
         <table class="ui celled table">
             <tr class="center aligned">
                 <th>id</th>
@@ -29,6 +48,7 @@
         @endeach
         </table>
     </div>
+
 @endsection
 
 

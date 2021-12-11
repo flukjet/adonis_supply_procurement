@@ -8,12 +8,8 @@ export default class SuppliesController {
 
     public async index({request,view}: HttpContextContract) {
         const order = request.cookie('order',[])
-        const ticket_id = request.cookie('ticket_id')
         const orders = request.cookie('orders')
         const products = await Product.all()
-        
-        console.log(order);
-        
 
         return view.render('supply',{products: products, order:order,orders:orders})
     }
@@ -148,10 +144,9 @@ export default class SuppliesController {
     }
 
 
-    public async edit({params,request,response,view}: HttpContextContract) {
+    public async edit({params,response,view}: HttpContextContract) {
 
-      const order = request.cookie('order')
-      const ticket_id_c = request.cookie('ticket_id')
+
 
       let ticket_id = params.id 
 
@@ -194,11 +189,11 @@ export default class SuppliesController {
     
     }
 
-    public async updateTicket({request, session, response}: HttpContextContract){
+    public async updateTicket({request, response}: HttpContextContract){
 
-      const order = request.cookie('order')
+
       const ticket_id = parseInt(request.cookie('ticket_id'),10)
-      const user = session.get('user')
+
       const note = request.input('note')
 
       
@@ -219,12 +214,10 @@ export default class SuppliesController {
     }
 
     
-    async delete({session, params, response}: HttpContextContract){
+    async delete({params, response}: HttpContextContract){
 
-      const user = session.get('user')
+
       const ticket_id = params.id
-      // const ticketdetail = await Ticketdetail.query().where('ticket_id',ticket_id).firstOrFail()
-      // await ticketdetail?.delete()
 
 
 
@@ -235,7 +228,7 @@ export default class SuppliesController {
       response.redirect().toRoute('home')
   }
 
-  public async ticketView({params,request,response,view}: HttpContextContract) {
+  public async ticketView({params,view}: HttpContextContract) {
 
 
     let ticket_id = params.id 
@@ -247,7 +240,6 @@ export default class SuppliesController {
                                             .preload('product')
                                             .preload('ticket')
 
-    console.log(productdetail[0]);
     
                                           
     return view.render('productview',{products: productdetail,productView: true })

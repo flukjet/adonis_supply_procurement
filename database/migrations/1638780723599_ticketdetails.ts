@@ -6,8 +6,8 @@ export default class Ticketdetails extends BaseSchema {
   public async up () {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.integer('ticket_id').notNullable().unsigned().references('id').inTable('tickets').onDelete('CASCADE').onUpdate('CASCADE')
-      table.integer('product_id')
+      table.integer('ticket_id').notNullable().unsigned().references('tickets.id')
+      table.integer('product_id').unsigned().references('products.id')
       table.integer('quantity')
       
 

@@ -8,7 +8,6 @@
         <table class="ui celled table">
             <tr class="center aligned">
                 <th class="left aligned">Product</th>
-                {{--  <th>Picture</th>  --}}
                 <th>Quantity</th>
             </tr>
         @each(product in orders)
@@ -23,7 +22,8 @@
         <br>
             <textarea id="note" name="note" rows="3" cols="30">{{note}}</textarea>
         <br>
-        <input class="ui red mini button" type="submit" value="Update">
+        <input class="ui green mini button" type="submit" value="Update">
+        <a class="ui grey mini button" href="{{route('history')}}">Return</a>
         </form>
     </div>
 @endsection

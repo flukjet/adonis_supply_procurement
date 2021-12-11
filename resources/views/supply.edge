@@ -4,22 +4,17 @@
 @set('title','supply')
 
 @section('body')
-    {{--  Search box  --}}
-    <div class="ui action left icon input">
-      <i class="search icon"></i>
-      <input type="text" placeholder="Search with name...">
-      <button type="submit" class="ui button">Search</button>
-    </div>
-    {{--  History  --}}
-    <a class="ui button" href="{{route('history')}}">
+
+<div class="ui segment">
+    <a class="ui button" style="position: absolute; right: 10px; top:5px;" href="{{route('history')}}">
       History
     </a>
-    {{--  Product cart  --}}
-    
+    <h1 style="text-align: center">Products</h1>
       <div class="ui four column doubling grid container" style="margin-top: 20px;">
+        
         @each(product in products)
           <div class="column">
-            <div class="ui card">
+            <div id="myUL" class="ui card">
               <div class="image">
                 <img class="fluid" src="./pictures/{{product.image}}" height="100px">
               </div>
@@ -36,7 +31,9 @@
           </div>
         @endeach
       </div>
+</div>
 @endsection
+
 
 
 

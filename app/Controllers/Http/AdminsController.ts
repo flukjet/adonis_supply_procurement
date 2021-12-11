@@ -4,7 +4,7 @@ import Ticketdetail from 'App/Models/Ticketdetail'
 
 export default class AdminsController {
 
-    public async admin({request,response,view}: HttpContextContract) {
+    public async admin({view}: HttpContextContract) {
 
         const ticketdetails = await Ticketdetail.query().preload('product').preload('ticket')
         
@@ -17,7 +17,6 @@ export default class AdminsController {
 
 
         const ticket_id = params.id
-        const user = session.get('user')
 
         const tickets = await Ticket.query()
                                     .where('id',ticket_id)
@@ -31,11 +30,10 @@ export default class AdminsController {
       }
 
       
-    public async rejectStatus({params, session, response}: HttpContextContract){
+    public async rejectStatus({params, response}: HttpContextContract){
 
 
         const ticket_id = params.id
-        const user = session.get('user')
 
         const tickets = await Ticket.query()
                                     .where('id',ticket_id)
@@ -59,6 +57,8 @@ export default class AdminsController {
                                                 .where('ticket_id',ticket_id)
                                                 .preload('product')
                                                 .preload('ticket')
+        
+        console.log(productdetail[1].product);
         
                                               
         return view.render('productview',{products: productdetail})

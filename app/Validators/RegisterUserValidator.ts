@@ -53,6 +53,6 @@ export default class RegisterUserValidator {
    */
   public messages = {	required: '{{ field }} is required!',
 	minLength: '{{ field }} must have at least {{ options.minLength }} length!',
-  maxLength: '{{ field }} must have less than {{ options.minLength }} length!',
+  maxLength: '{{ field }} must have less than {{ options.maxLength }} length!',
 	'username.unique': 'The username is already used!'}
 }

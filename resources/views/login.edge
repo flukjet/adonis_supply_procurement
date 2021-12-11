@@ -4,35 +4,26 @@
 @set('title','Login')
 
 @section('body')
-    {{--  Login  --}}
+
+<div class="ui middle aligned center aligned centered grid" style="height : 100%" style="width : 100%">
+    <div class="five wide column"><br>
     <h1 class="ui header">Sign in</h1>
-        @if(flashMessages.has('error'))
-            <div class="ui error message" > {{ flashMessages.get('error')}} </div>
-        @endif
-    <div class="ui container">
-        <form class="ui form" action="{{ route('users.login') }}" method="post">
-            <div class="four wide field ">
-                <div class="ui left icon input">
-                    <i class="user icon"></i>
+        <form class="ui large form" action="{{ route('users.login') }}" method="post">
+            <div class="ui field ">
                     <input type="text" name="username" placeholder="Username">
-                    @if(flashMessages.has('errors.username'))
-                        <div class="ui negative message"> {{ flashMessages.get('errors.username')}} </div>
-                     @endif
-                </div>
             </div>
-            <div class="four wide field">
-                <div class="ui left icon input">
-                    <i class="lock icon"></i>
+            <div class="ui field">
                     <input type="password" name="password" placeholder="Password">
-                    @if(flashMessages.has('errors.password'))
-                        <div class="ui negative message"> {{ flashMessages.get('errors.password')}} </div>
-                    @endif
-                </div>
             </div>
-            <input class="ui orange button" type="submit" value="Login">
-            <a class="ui orange button" href="{{route('register')}}">Register</a>
+            <input class="ui fluid orange button" type="submit" value="Login">
+            <a class="ui fluid brown button" href="{{route('register')}}">Register</a>
+            <div class="ui error message"></div>
+            @if(flashMessages.has('error'))
+                <div class="ui negative message"> {{ flashMessages.get('error')}} </div>
+            @endif
         </form>
-    </div>
+        </div>
+</div>
 
 @endsection
   

@@ -3,73 +3,70 @@
 
 @set('title','Product Management')
 
+
 @section('body')
 
-@if(cbutton == true)
-    <h1 class="ui header">Update Your Product</h1>
-        <form class="ui form" action="{{ route('product.edit',{id: product.id}) }}" method="post" enctype="multipart/form-data">
+    @if(cbutton == true)
+        <div class="ui segment">
+                <h1 class="ui header">Update Your Product</h1>
+                    <form class="ui form" action="{{ route('product.edit',{id: product.id}) }}" method="post" enctype="multipart/form-data">
+                        <div class="four wide field">
+                            <label>Product Name</label>
+                  
+                                <input type="text" value="{{product.name}}" name="name" placeholder="Name">
+                                @if(flashMessages.has('errors.name'))
+                                    <div class="ui negative message"> {{ flashMessages.get('errors.name')}} </div>
+                                @endif
+                       
+                        </div>
+                        <div class="four wide field">
+                            <label>Detail</label>
+                       
+                                <input type="text" value="{{product.detail}}"  name="detail" placeholder="Detail">
+                                @if(flashMessages.has('errors.detail'))
+                                    <div class="ui negative message"> {{ flashMessages.get('errors.detail')}} </div>
+                                @endif
+            
+                        </div>
+                        <div class="four wide field">
+                            <label>Image</label>
+                                <label for="myfile">Select a image file:</label>
+                                <input type="file" id="myfile" name="file"><br><br>
+                        </div>
+                        <input class="ui green button" type="submit" value="Update">
+                    </form>
+        </div>
+    @else
+        <div class="ui segment">
+        <h1 class="ui header">Add New Product</h1>
+        <form class="ui form" action="{{ route('product.create') }}" method="post" enctype="multipart/form-data">
             <div class="four wide field">
                 <label>Product Name</label>
-                {{--  <div class="ui input">  --}}
-                    <input type="text" value="{{product.name}}" name="name" placeholder="Name">
+                    <input type="text" name="name" placeholder="Name">
                     @if(flashMessages.has('errors.name'))
-                    <div class="ui negative message"> {{ flashMessages.get('errors.name')}} </div>
-                @endif
-                {{--  </div>  --}}
+                        <div class="ui negative message"> {{ flashMessages.get('errors.name')}} </div>
+                    @endif
             </div>
             <div class="four wide field">
                 <label>Detail</label>
-                {{--  <div class="ui input">  --}}
-                    <input type="text" value="{{product.detail}}"  name="detail" placeholder="Detail">
+                    <input type="text" name="detail" placeholder="Detail">
                     @if(flashMessages.has('errors.detail'))
-                    <div class="ui negative message"> {{ flashMessages.get('errors.detail')}} </div>
-                @endif
-  
-                {{--  </div>  --}}
+                        <div class="ui negative message"> {{ flashMessages.get('errors.detail')}} </div>
+                    @endif
+
             </div>
             <div class="four wide field">
-                <label>Image</label>
-                {{--  <div class="ui input">  --}}
-                    <label for="myfile">Select a image file:</label>
+                <label for="myfile">Select a image file:</label>
                     <input type="file" id="myfile" name="file"><br><br>
-                {{--  </div>  --}}
             </div>
-            <input class="ui orange button" type="submit" value="Update">
+            <input class="ui green button" type="submit" value="Create New Product">
         </form>
-@else
-    <h1 class="ui header">Add New Product</h1>
-    <form class="ui form" action="{{ route('product.create') }}" method="post" enctype="multipart/form-data">
-        <div class="four wide field">
-            <label>Product Name</label>
-            {{--  <div class="ui input">  --}}
-                <input type="text" name="name" placeholder="Name">
-                @if(flashMessages.has('errors.name'))
-                <div class="ui negative message"> {{ flashMessages.get('errors.name')}} </div>
-            @endif
-            {{--  </div>  --}}
         </div>
-        <div class="four wide field">
-            <label>Detail</label>
-            {{--  <div class="ui input">  --}}
-                <input type="text" name="detail" placeholder="Detail">
-                @if(flashMessages.has('errors.detail'))
-                <div class="ui negative message"> {{ flashMessages.get('errors.detail')}} </div>
-            @endif
 
-            {{--  </div>  --}}
-        </div>
-        <div class="four wide field">
-            {{--  <div class="ui input">  --}}
-            <label for="myfile">Select a image file:</label>
-                <input type="file" id="myfile" name="file"><br><br>
-            {{--  </div>  --}}
-        </div>
-        <input class="ui orange button" type="submit" value="Create New Product">
-    </form>
-
-
-@endif
+    @endif
 @endsection
+
+
 
 
 

@@ -10,39 +10,40 @@
         <table class="ui celled table">
             <tr class="center aligned">
                 <th class="left aligned">Product</th>
-                {{--  <th>Picture</th>  --}}
+                <th>Picture</th>
                 <th>Quantity</th>
             </tr>
         @each(productdetail in products)
             <tr class="center aligned">
+            @if( productdetail.product == null  )
+
+            @else
                 <td class="left aligned">{{productdetail.product.name}}</td>
-                {{--  <td>{{product.image}}</td>  --}}
+                <td>{{productdetail.product.image}}</td>
                 <td>{{productdetail.quantity}}</td>
-            </tr>
+            @endif
         @endeach
         </table>
         <a class="ui grey mini button" href="{{route('history')}}">Return</a>
     </div>
-
-
-
 @else
     <div class="ui segment">
         <h3>Your order</h3>
-        <table class="ui celled table">
+        <table class="ui celled table"> 
             <tr class="center aligned">
                 <th class="left aligned">Product</th>
-                {{--  <th>Picture</th>  --}}
+                <th>Picture</th>
                 <th>Quantity</th>
             </tr>
         @each(productdetail in products)
             <tr class="center aligned">
                 <td class="left aligned">{{productdetail.product.name}}</td>
-                {{--  <td>{{product.image}}</td>  --}}
+                <td>{{productdetail.product.image}}</td>
                 <td>{{productdetail.quantity}}</td>
             </tr>
-        @endeach
+            @endeach
         </table>
+
         <a class="ui grey mini button" href="{{route('admin')}}">Return</a>
     </div>
 @endif

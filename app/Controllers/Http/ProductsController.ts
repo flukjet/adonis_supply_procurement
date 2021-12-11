@@ -37,6 +37,7 @@ export default class ProductsController {
 
     public async createProduct({request,response}: HttpContextContract) {
         
+        const product = await request.validate(ProductValidator)
 
         const postImage = request.file('file', {
             size: '100mb',
@@ -61,12 +62,6 @@ export default class ProductsController {
               overwrite: true, 
             })
           }
-
-
-        
-
-        const product = await request.validate(ProductValidator)
-
 
         const newProduct = await Product.create({name: product.name, detail: product.detail, image: name })
 
@@ -90,9 +85,10 @@ export default class ProductsController {
 
       public async editProduct({params,response,request}: HttpContextContract){
 
-
-
         const product_id = params.id
+
+        const product = await request.validate(ProductValidator)
+
 
         const postImage = request.file('file', {
             size: '100mb',
@@ -102,7 +98,6 @@ export default class ProductsController {
           let date_ob = new Date();
 
           const name = ("0" + date_ob.getDate()).slice(-2)+("0" + (date_ob.getMonth() + 1)).slice(-2)+date_ob.getFullYear()+date_ob.getHours()+date_ob.getMinutes()+date_ob.getSeconds()+date_ob.getMilliseconds()+'.'+postImage?.subtype
-
 
 
           if (!postImage) {
@@ -118,8 +113,6 @@ export default class ProductsController {
             })
           }
 
-
-        const product = await request.validate(ProductValidator)
 
         const newProduct = await Product.query()
                                         .where('id',product_id)

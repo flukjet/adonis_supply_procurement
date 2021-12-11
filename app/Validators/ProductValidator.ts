@@ -25,10 +25,10 @@ export default class ProductValidator {
    */
   public schema = schema.create({
     name: schema.string({},[
-		  rules.minLength(1)
+      rules.maxLength(50)
 	  ]),
 	  detail: schema.string({},[
-		  rules.minLength(1)
+      rules.maxLength(50)
 	  ])
   })
 
@@ -44,5 +44,5 @@ export default class ProductValidator {
    *
    */
   public messages = {	required: '{{ field }} is required!',
-	minLength: '{{ field }} must have at least {{ options.minLength }} length!'}
+	maxLength: '{{ field }} must have less than {{ options.maxLength }} length!'}
 }

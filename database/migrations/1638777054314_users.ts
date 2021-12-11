@@ -9,7 +9,7 @@ export default class Users extends BaseSchema {
       table.string('name', 255)
       table.string('username', 100).notNullable().unique()
       table.string('password', 180).notNullable()
-      table.string('role_id',10).notNullable().defaultTo(1)
+      table.string('role_id',10).notNullable().defaultTo(1).notNullable().unsigned().references('id').inTable('roles').onDelete('CASCADE').onUpdate('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

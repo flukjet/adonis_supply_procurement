@@ -4,15 +4,8 @@
 @set('title','Product Management(Delete)')
 
 @section('body')
-    {{--  Search box  --}}
-    <div class="ui action left icon input">
-      <i class="search icon"></i>
-      <input type="text" placeholder="Search with name...">
-      <button type="submit" class="ui button">Search</button>
-    </div>
-
-    {{--  Product cart  --}}
-    
+<div class="ui segment">
+      <h1 style="text-align: center">Products</h1>
       <div class="ui four column doubling grid container" style="margin-top: 20px;">
         @each(product in products)
           <div class="column">
@@ -28,13 +21,12 @@
                 <a id="{{product.id}}" class="right floated ui red mini button" href="{{route('product.del', {id: product.id})}}" >delete</a>
                  &nbsp; &nbsp; &nbsp;
                 <a id="{{product.id}}" class="right floated ui teal mini button" href="{{route('editProductPage', {id: product.id})}}" >edit</a>
-                 
-                
               </div>
             </div>
           </div>
         @endeach
       </div>
+</div>
 @endsection
 
 

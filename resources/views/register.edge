@@ -1,41 +1,40 @@
 @layout('layouts/master')
 
 
-@set('title','Login')
+@set('title','Register')
 
 @section('body')
-    <h1 class="ui header">Register</h1>
-        <form class="ui form" action="{{ route('users.register') }}" method="post">
-            <div class="four wide field">
-                <label>Username</label>
-                {{--  <div class="ui input">  --}}
-                    <input type="text" name="username" placeholder="Username">
-                    @if(flashMessages.has('errors.username'))
-                        <div class="ui negative message"> {{ flashMessages.get('errors.username')}} </div>
-                    @endif
-                {{--  </div>  --}}
-            </div>
-            <div class="four wide field">
-                <label>Name</label>
-                {{--  <div class="ui input">  --}}
-                    <input type="text" name="name" placeholder="ํFull name">
-                    @if(flashMessages.has('errors.name'))
-                        <div class="ui negative message"> {{ flashMessages.get('errors.name')}} </div>
-                    @endif
-                {{--  </div>  --}}
-            </div>
-            <div class="four wide field">
-                <label>Password</label>
-                {{--  <div class="ui input">  --}}
-                    <input type="password" name="password" placeholder="Password">
-                    @if(flashMessages.has('errors.password'))
-                        <div class="ui negative message"> {{ flashMessages.get('errors.password')}} </div>
-                    @endif    
-                {{--  </div>  --}}
-            </div>
-            <input class="ui orange button" type="submit" value="Register">
-            <a href="{{route('login')}}">Sign in instead?</a>
-        </form>
 
+<div class="ui middle aligned center aligned centered grid" style="height : 100%" style="width : 100%">
+    <div class="five wide column"><br>
+
+        <h1 class="ui header">Register</h1>
+            <form class="ui large form" action="{{ route('users.register') }}" method="post">
+                <div class="ui field">
+                    <label>Username:</label>
+                        <input type="text" name="username" placeholder="Username">
+                        @if(flashMessages.has('errors.username'))
+                            <div class="ui negative message"> {{ flashMessages.get('errors.username')}} </div>
+                        @endif
+                </div>
+                <div class="ui field">
+                    <label>Name:</label>
+                        <input type="text" name="name" placeholder="ํFull name">
+                        @if(flashMessages.has('errors.name'))
+                            <div class="ui negative message"> {{ flashMessages.get('errors.name')}} </div>
+                        @endif
+                </div>
+                <div class="ui field">
+                    <label>Password:</label>
+                        <input type="password" name="password" placeholder="Password">
+                        @if(flashMessages.has('errors.password'))
+                            <div class="ui negative message"> {{ flashMessages.get('errors.password')}} </div>
+                        @endif 
+                </div>
+                <input class="ui orange button" type="submit" value="Register">
+                <a href="{{route('login')}}">Sign in instead?</a>
+            </form>
+    </div>
+</div>
 @endsection
   

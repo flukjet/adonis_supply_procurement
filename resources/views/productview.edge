@@ -9,7 +9,7 @@
         <h3>Your order</h3>
         <table class="ui celled table">
             <tr class="center aligned">
-                <th class="left aligned">Product</th>
+                <th>Product</th>
                 <th>Picture</th>
                 <th>Quantity</th>
             </tr>
@@ -18,7 +18,7 @@
             @if( productdetail.product == null  )
 
             @else
-                <td class="left aligned">{{productdetail.product.name}}</td>
+                <td>{{productdetail.product.name}}</td>
                 <td>{{productdetail.product.image}}</td>
                 <td>{{productdetail.quantity}}</td>
             @endif
@@ -31,16 +31,19 @@
         <h3>Your order</h3>
         <table class="ui celled table"> 
             <tr class="center aligned">
-                <th class="left aligned">Product</th>
+                <th>Product</th>
                 <th>Picture</th>
                 <th>Quantity</th>
             </tr>
         @each(productdetail in products)
             <tr class="center aligned">
-                <td class="left aligned">{{productdetail.product.name}}</td>
-                <td>{{productdetail.product.image}}</td>
-                <td>{{productdetail.quantity}}</td>
-            </tr>
+                @if( productdetail.product == null  )
+
+                @else
+                    <td>{{productdetail.product.name}}</td>
+                    <td>{{productdetail.product.image}}</td>
+                    <td>{{productdetail.quantity}}</td>
+                @endif
             @endeach
         </table>
 

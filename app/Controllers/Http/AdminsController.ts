@@ -57,9 +57,7 @@ export default class AdminsController {
                                                 .where('ticket_id',ticket_id)
                                                 .preload('product')
                                                 .preload('ticket')
-        
-        console.log(productdetail[1].product);
-        
+
                                               
         return view.render('productview',{products: productdetail})
       }

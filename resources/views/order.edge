@@ -8,12 +8,12 @@
         <h3>Your order : {{order.length}} item(s)</h3>
         <table class="ui celled table">
             <tr class="center aligned">
-                <th class="left aligned">Product</th>
+                <th class>Product</th>
                 <th>Quantity</th>
             </tr>
         @each(product in orders)
             <tr class="center aligned">
-                <td class="left aligned">{{product.name}}</td>
+                <td class>{{product.name}}</td>
                 <td>{{product.quantity}}</td>
                 <td><a class="ui red mini button" href="{{ route('order.delete',{id: product.id})}}">Delete</a></td>
             </tr>
